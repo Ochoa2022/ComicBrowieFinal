@@ -9,9 +9,13 @@ public class playerMovement : MonoBehaviour
     private float horizontal;
     public float jump;
     public bool isJumping;
+    Animator animator; 
+    Vector2 lookDirection = new Vector2(1, 0);
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+       
     }
     // Update is called once per frame
     private void Update()
@@ -23,8 +27,22 @@ public class playerMovement : MonoBehaviour
         {
             body.AddForce(new Vector2(body.velocity.x, jump));
             isJumping = true;
+            animator.SetTrigger("Jump");
         }
 
+
+        if (!Mathf.Approximately(move.x, 0.0f))
+        {
+            lookDirection.Set(move.x, 0);
+            lookDirection.Normalize();
+        }
+        
+            animator.SetFloat("Move X", lookDirection.x);
+            animator.SetFloat("Speed", move.magnitude);
+        
+
+        
+        
 
     }
     void FixedUpdate()                
