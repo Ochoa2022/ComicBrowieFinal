@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class playerMovement : MonoBehaviour
 {
+    public int maxHealth = 3;
+    int currentHealth;
     public float speed;
     private Rigidbody2D body;
     private float horizontal;
@@ -11,11 +13,15 @@ public class playerMovement : MonoBehaviour
     public bool isJumping;
     Animator animator; 
     Vector2 lookDirection = new Vector2(1, 0);
+    bool isInvincible;
+    float invincibleTimer;
+    public float timeInvincible = 2.0f;
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-       
+        currentHealth = maxHealth;
+
     }
     // Update is called once per frame
     private void Update()
@@ -60,5 +66,22 @@ public class playerMovement : MonoBehaviour
             isJumping = false;
             Debug.Log("collide");
         }
+    }
+    public void ChangeHealth(int amount)
+    {
+        if (amount < 0)
+        {
+            if (isInvincible)
+                return;
+            isInvincible = true;
+            invincibleTimer = timeInvincible;
+            currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+            Debug.Log(currentHealth + "/" + maxHealth);
+            //UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
+
+        }
+
+        //currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+       // UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
     }
 }
