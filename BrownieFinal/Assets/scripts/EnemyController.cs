@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
     
     Animator animator;
     AudioSource audioSource;
+    public AudioClip DeathSound;
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -68,10 +69,11 @@ public class EnemyController : MonoBehaviour
         Alive = false;
        
         rigidbody2D.simulated = false;
-        //animator.SetTrigger("Hurt");
+        animator.SetTrigger("Hurt");
+        audioSource.PlayOneShot(DeathSound);
         //Instantiate(hitEffect, rigidbody2D.position + Vector2.up * 1.5f, Quaternion.identity);
-       
-        
+
+
     }
     public void PlaySound(AudioClip clip)
     {

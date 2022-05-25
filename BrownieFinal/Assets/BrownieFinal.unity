@@ -1572,6 +1572,7 @@ MonoBehaviour:
   speed: 3
   vertical: 0
   changeTime: 1
+  DeathSound: {fileID: 8300000, guid: ea6dd8736e8b2a045a9289ea9eb5ba78, type: 3}
 --- !u!1 &1378133568
 GameObject:
   m_ObjectHideFlags: 0
