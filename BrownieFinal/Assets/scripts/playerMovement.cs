@@ -5,22 +5,26 @@ using UnityEngine;
 public class playerMovement : MonoBehaviour
 {
     public int maxHealth = 3;
-    int currentHealth;
+    public int currentHealth;
     public float speed;
     private Rigidbody2D body;
     private float horizontal;
     public float jump;
     public bool isJumping;
-    Animator animator; 
+    Animator animator;
+    AudioSource audioSource;
     Vector2 lookDirection = new Vector2(1, 0);
     bool isInvincible;
     float invincibleTimer;
     public float timeInvincible = 2.0f;
+    public GameObject projectilePrefab;
+    public AudioClip shootSound;
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
+        audioSource = GetComponent<AudioSource>();
 
     }
     // Update is called once per frame
@@ -45,10 +49,15 @@ public class playerMovement : MonoBehaviour
         
             animator.SetFloat("Move X", lookDirection.x);
             animator.SetFloat("Speed", move.magnitude);
-        
+        if (Input.GetKeyDown("space"))
+        {
+            Shoot();
+            audioSource.PlayOneShot(shootSound);
 
-        
-        
+        }
+
+
+
 
     }
     void FixedUpdate()                
@@ -83,5 +92,13 @@ public class playerMovement : MonoBehaviour
 
         //currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
        // UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
+    }
+    void Shoot()
+    {
+        GameObject projectileObject = Instantiate(projectilePrefab, body.position + Vector2.up * 0.5f, Quaternion.identity);
+        Projectile projectile = projectileObject.GetComponent<Projectile>();
+        projectile.Launch(lookDirection, 300);
+
+        animator.SetTrigger("Shoot");
     }
 }
