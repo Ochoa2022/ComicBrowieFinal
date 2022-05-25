@@ -60,7 +60,7 @@ public class EnemyController : MonoBehaviour
         if(player != null)
         {
             player.ChangeHealth(-1);
-           
+            animator.SetTrigger("attack");
         }
     }
     public void Dead()
