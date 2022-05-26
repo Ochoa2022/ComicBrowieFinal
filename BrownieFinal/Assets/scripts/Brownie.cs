@@ -1,31 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+
 
 public class Brownie : MonoBehaviour
-{
-
-    private int score;
-    public TextMeshProUGUI Score;
+{ private GameControl gameControl;
+    public AudioClip collectSound;
+    AudioSource audioSource;
     void Start()
     {
-        score = 0;
-        UpdateScore(0);
+        audioSource = GetComponent<AudioSource>();
+        gameControl = GameObject.Find("GameController").GetComponent<GameControl>();
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        UpdateScore(1);
-        Destroy(gameObject);
+        PlaySound(collectSound);
+        gameControl.UpdateScore(1); // changes score text
         
-
-
-
+        Destroy(gameObject);
     }
-    public void UpdateScore(int scoreToAdd)
+    public void PlaySound(AudioClip clip)
     {
-        score += scoreToAdd;
-        Score.text = "Score:" + score + "/8";
+        audioSource.PlayOneShot(clip);
     }
 }
+
+
+   
+   
+   

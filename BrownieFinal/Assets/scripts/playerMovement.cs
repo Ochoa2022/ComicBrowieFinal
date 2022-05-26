@@ -20,6 +20,8 @@ public class playerMovement : MonoBehaviour
     public float timeInvincible = 2.0f;
     public GameObject projectilePrefab;
     public AudioClip shootSound;
+    public AudioClip HurtSound;
+    public GameObject gameOver;
     
     private void Awake()
     {
@@ -35,8 +37,8 @@ public class playerMovement : MonoBehaviour
     {
         horizontal = Input.GetAxis("Horizontal");
         
-        Vector2 move = new Vector2(horizontal, body.velocity.y);
-        if(Input.GetKeyDown(KeyCode.UpArrow) && !isJumping )
+        Vector2 move = new Vector2(horizontal, body.velocity.y); // moves player left and right
+        if(Input.GetKeyDown(KeyCode.UpArrow) && !isJumping ) // lets player jump if on ground
         {
             body.AddForce(new Vector2(body.velocity.x, jump));
             isJumping = true;
@@ -44,7 +46,7 @@ public class playerMovement : MonoBehaviour
         }
 
 
-        if (!Mathf.Approximately(move.x, 0.0f))
+        if (!Mathf.Approximately(move.x, 0.0f)) 
         {
             lookDirection.Set(move.x, 0);
             lookDirection.Normalize();
@@ -52,7 +54,7 @@ public class playerMovement : MonoBehaviour
         
             animator.SetFloat("Move X", lookDirection.x);
             animator.SetFloat("Speed", move.magnitude);
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("space")) // sets off projectiles
         {
             Shoot();
             audioSource.PlayOneShot(shootSound);
@@ -66,33 +68,40 @@ public class playerMovement : MonoBehaviour
     void FixedUpdate()                
     {
         Vector2 position = body.position;
-        position.x = position.x + speed * horizontal * Time.deltaTime;
+        position.x = position.x + speed * horizontal * Time.deltaTime; // moves player according to speed
        
         body.MovePosition(position);
 
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground")) //makes sure player is on the ground when jumping
         {
             isJumping = false;
             Debug.Log("collide");
         }
+        if (other.gameObject.CompareTag("Finish")) // to check if player has touched invisible collider when they fall that finish their game because they lose
+        {
+            gameOver.gameObject.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
-    public void ChangeHealth(int amount)
+    public void ChangeHealth(int amount) // chane the health when attacked
     {
         if (amount < 0)
         {
            
             currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
             Debug.Log(currentHealth + "/" + maxHealth);
-            
+            animator.SetTrigger("Hurt");
+            audioSource.PlayOneShot(HurtSound);
+
 
         }
 
-        
+
     }
-    void Shoot()
+    void Shoot() // shoots projectile 
     {
         GameObject projectileObject = Instantiate(projectilePrefab, body.position + Vector2.up * 0.5f, Quaternion.identity);
         Projectile projectile = projectileObject.GetComponent<Projectile>();

@@ -12,7 +12,6 @@ public class EnemyController : MonoBehaviour
     Rigidbody2D rigidbody2D;
     float timer;
     int direction = 1;
-    bool Alive = true;
     
     Animator animator;
     AudioSource audioSource;
@@ -28,32 +27,26 @@ public class EnemyController : MonoBehaviour
 
     }
     void Update()
-    { if(!Alive)
-        {
-            return;
-        }
+    { 
         timer -= Time.deltaTime;
 
         if (timer <0)
         {
             direction = -direction;
                 timer = changeTime;
-        }
+        } // the amount of time before the alien switches directions 
     }
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!Alive)
-        {
-            return;
-        }
+       
         Vector2 position = rigidbody2D.position;
          position.x = position.x + Time.deltaTime * speed * direction; 
 
             rigidbody2D.MovePosition(position);
             animator.SetFloat("Move X", direction);
             
-        
+        // moving aliens 
 
     }
     void OnCollisionEnter2D(Collision2D other)
@@ -64,17 +57,19 @@ public class EnemyController : MonoBehaviour
             player.ChangeHealth(-1);
             animator.SetTrigger("attack");
             audioSource.PlayOneShot(attackSound);
+            //alien attacking player
 
         }
     }
     public void Dead()
     {
-        Alive = false;
+        
        
         rigidbody2D.simulated = false;
         animator.SetTrigger("Hurt");
         audioSource.PlayOneShot(DeathSound);
         Invoke("Destroy", 1f);
+        //alien death
     }
     void Destroy()
     {
