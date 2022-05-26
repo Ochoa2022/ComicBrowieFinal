@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class playerMovement : MonoBehaviour
 {
@@ -14,17 +15,19 @@ public class playerMovement : MonoBehaviour
     Animator animator;
     AudioSource audioSource;
     Vector2 lookDirection = new Vector2(1, 0);
-    bool isInvincible;
+    
     float invincibleTimer;
     public float timeInvincible = 2.0f;
     public GameObject projectilePrefab;
     public AudioClip shootSound;
+    
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
         audioSource = GetComponent<AudioSource>();
+        
 
     }
     // Update is called once per frame
@@ -80,18 +83,14 @@ public class playerMovement : MonoBehaviour
     {
         if (amount < 0)
         {
-            if (isInvincible)
-                return;
-            isInvincible = true;
-            invincibleTimer = timeInvincible;
+           
             currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
             Debug.Log(currentHealth + "/" + maxHealth);
-            //UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
+            
 
         }
 
-        //currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-       // UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
+        
     }
     void Shoot()
     {
@@ -101,4 +100,5 @@ public class playerMovement : MonoBehaviour
 
         animator.SetTrigger("Shoot");
     }
+   
 }

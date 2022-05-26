@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
     Animator animator;
     AudioSource audioSource;
     public AudioClip DeathSound;
+    public AudioClip attackSound;
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -62,6 +63,8 @@ public class EnemyController : MonoBehaviour
         {
             player.ChangeHealth(-1);
             animator.SetTrigger("attack");
+            audioSource.PlayOneShot(attackSound);
+
         }
     }
     public void Dead()
@@ -71,9 +74,11 @@ public class EnemyController : MonoBehaviour
         rigidbody2D.simulated = false;
         animator.SetTrigger("Hurt");
         audioSource.PlayOneShot(DeathSound);
-        //Instantiate(hitEffect, rigidbody2D.position + Vector2.up * 1.5f, Quaternion.identity);
-
-
+        Invoke("Destroy", 1f);
+    }
+    void Destroy()
+    {
+        Destroy(gameObject);
     }
     public void PlaySound(AudioClip clip)
     {
