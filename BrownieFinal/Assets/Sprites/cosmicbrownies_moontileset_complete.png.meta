@@ -72,6 +72,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -520,6 +521,23 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      cosmicbrownies_moontileset_complete_2: 211888370779205259
+      cosmicbrownies_moontileset_complete_8: -3867443163376883279
+      cosmicbrownies_moontileset_complete_10: -8600670368745159364
+      cosmicbrownies_moontileset_complete_7: 1077335992001627793
+      cosmicbrownies_moontileset_complete_15: 2007128193345745717
+      cosmicbrownies_moontileset_complete_14: 720655564763299367
+      cosmicbrownies_moontileset_complete_4: 6183939940673812342
+      cosmicbrownies_moontileset_complete_12: 4809430591115291741
+      cosmicbrownies_moontileset_complete_11: 6043727076454629311
+      cosmicbrownies_moontileset_complete_3: -1295017209330803895
+      cosmicbrownies_moontileset_complete_5: 6266406121045029505
+      cosmicbrownies_moontileset_complete_6: 7541317411515762484
+      cosmicbrownies_moontileset_complete_13: -2925041130265445891
+      cosmicbrownies_moontileset_complete_1: -7988057895669190873
+      cosmicbrownies_moontileset_complete_9: 4574143737585348208
+      cosmicbrownies_moontileset_complete_0: 7880897870050727615
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

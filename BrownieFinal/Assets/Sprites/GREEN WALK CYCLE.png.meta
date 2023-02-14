@@ -42,6 +42,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -280,6 +281,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      GREEN WALK CYCLE_5: -2615838634222919501
+      GREEN WALK CYCLE_3: -3377821315076072360
+      GREEN WALK CYCLE_1: -3209860708752360844
+      GREEN WALK CYCLE_4: 3845769442737241704
+      GREEN WALK CYCLE_0: 2666777565796232150
+      GREEN WALK CYCLE_2: 6635807313403653423
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
